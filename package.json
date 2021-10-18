@@ -6,14 +6,24 @@
   "repository": "https://github.com/mya-engineer/idk-name-chat.git",
   "author": "mya",
   "license": "MIT",
+  "keywords": [
+    "nodejs",
+    "socket-io",
+    "react",
+    "react-suite",
+    "express"
+  ],
   "scripts": {
-    "server": "nodemon app.js"
+    "server": "nodemon app.js",
+    "client": "yarn --cwd client start",
+    "dev": "concurrently \"yarn server\" \"yarn client\""
   },
   "dependencies": {
     "express": "^4.17.1",
     "socket.io": "^4.3.1"
   },
   "devDependencies": {
+    "concurrently": "^6.3.0",
     "nodemon": "^2.0.13"
   }
 }
