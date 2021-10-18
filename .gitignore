@@ -1,2 +1,5 @@
 # vscode
 workspace.*
+
+# node
+node_modules/
