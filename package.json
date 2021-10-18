@@ -1,0 +1,9 @@
+{
+  "name": "idk-name-chat",
+  "version": "1.0.0",
+  "description": "SocketIO chat for all!",
+  "main": "app.js",
+  "repository": "https://github.com/mya-engineer/idk-name-chat.git",
+  "author": "mya",
+  "license": "MIT"
+}
