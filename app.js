@@ -6,15 +6,29 @@ const app = express()
 
 const server = http.createServer(app)
 
-const io = new Server(server)
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
 })
 
 io.on('connection', socket => {
-  socket.on('chat message', msg => {
-    io.emit('chat message', msg)
+  socket.on('message', obj => {
+    io.emit('message', obj)
+  })
+
+  socket.on('user', payload => {
+    socket.user = payload.user
+    console.log(payload)
+    io.emit('message', {
+      message: `Welcome ${socket.user.username} on server!`,
+      user: { username: 'MYASHA-BOT~', avatar: 0, bot: true },
+    })
+  })
+
+  socket.on('disconnect', reason => {
+    console.log(reason)
   })
 })
 

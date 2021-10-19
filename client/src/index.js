@@ -4,10 +4,13 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import 'rsuite/dist/rsuite.min.css'
+import { SocketState } from './context/SocketState'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SocketState>
+      <App />
+    </SocketState>
   </React.StrictMode>,
   document.getElementById('root')
 )
