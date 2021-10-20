@@ -1,13 +1,30 @@
 import { Panel } from 'rsuite'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { SocketContext } from '../context/SocketContext'
 import Message from './Message'
 
 const Chat = () => {
   const { state } = useContext(SocketContext)
-  console.log(state)
+
+  useEffect(() => {
+    const chatWindow = document.getElementById('chat-window')
+
+    if (chatWindow.scrollHeight > chatWindow.clientHeight) {
+      chatWindow.scrollTo({
+        top: document.getElementById('chat-window').scrollHeight,
+        behavior: 'smooth',
+      })
+    }
+  }, [state.chat])
+
   return (
-    <Panel>
+    <Panel
+      style={{
+        paddingLeft: '10px', // could be dynamic offsetWidth - clientWidth
+        overflow: 'auto',
+        height: '90%',
+      }}
+      id='chat-window'>
       {state.chat.map(message => (
         <Message key={message.id} user={message.user} msg={message.message} />
       ))}

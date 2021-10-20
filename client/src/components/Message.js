@@ -1,15 +1,28 @@
 import { FlexboxGrid, Avatar } from 'rsuite'
 import avatars from '../avatars/avatars'
 
-const Message = ({ user, msg }) => (
-  <div>
-    <FlexboxGrid
-      style={{
-        border: '1px solid var(--rs-border-primary)',
-        marginBottom: '.5rem',
-        borderRadius: '6px',
-        padding: '.5rem',
-      }}>
+const Message = ({ user, msg }) => {
+  const MentionMessage = () => {
+    const splittedMessage = msg.split(/@\S+/g)
+    const result = splittedMessage.reduce((full, part, i) => {
+      return (
+        <>
+          {full}
+          {part}
+          {part ? <b>{isMention[i]}</b> : <></>}
+        </>
+      )
+    }, null)
+    return result
+  }
+
+  const isMention = msg.match(/@\S+/g)
+  if (isMention) {
+    msg = MentionMessage()
+  }
+
+  return (
+    <FlexboxGrid className='chat-message'>
       <FlexboxGrid.Item>
         <Avatar
           children={
@@ -26,7 +39,7 @@ const Message = ({ user, msg }) => (
       </FlexboxGrid.Item>
       <FlexboxGrid.Item colspan={24}>{msg}</FlexboxGrid.Item>
     </FlexboxGrid>
-  </div>
-)
+  )
+}
 
 export default Message

@@ -1,21 +1,10 @@
-import { Container, Panel, PanelGroup, Input, InputGroup, Button } from 'rsuite'
+import { Container, PanelGroup } from 'rsuite'
 import { useEffect } from 'react'
-import { IoIosSend } from 'react-icons/io'
 import UsernameModal from './components/UsernameModal'
 import Chat from './components/Chat'
-import { useContext, useRef } from 'react'
-import { SocketContext } from './context/SocketContext'
+import MessageInput from './components/MessageInput'
 
 function App() {
-  const { sendMessage } = useContext(SocketContext)
-
-  const inputRef = useRef('')
-  const handleMessage = event => {
-    event.preventDefault()
-    sendMessage('message', inputRef.current.value)
-    inputRef.current.value = ''
-  }
-
   useEffect(() => {
     // set padding for beatiful layout for the first time
     document.getElementById('send-input').style.paddingRight = `${
@@ -25,22 +14,13 @@ function App() {
 
   return (
     <Container style={containerStyles}>
-      <UsernameModal />
       <Container style={containerChatStyles} className='rs-panel-shaded'>
         <PanelGroup style={panelGroupStyles}>
           <Chat />
-          <Panel>
-            <form onSubmit={handleMessage}>
-              <InputGroup size='lg' inside>
-                <Input ref={inputRef} id='send-input' />
-                <InputGroup.Button id='send-button' type='submit'>
-                  <IoIosSend size={'22px'} color='DodgerBlue' />
-                </InputGroup.Button>
-              </InputGroup>
-            </form>
-          </Panel>
+          <MessageInput />
         </PanelGroup>
       </Container>
+      <UsernameModal />
     </Container>
   )
 }

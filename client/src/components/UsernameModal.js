@@ -10,8 +10,10 @@ const UsernameModal = () => {
 
   const handleUsername = event => {
     event.preventDefault()
-    setUser(inputRef.current.value)
-    setModal(false)
+    if (inputRef.current.value) {
+      setUser(inputRef.current.value)
+      setModal(false)
+    }
   }
 
   return (

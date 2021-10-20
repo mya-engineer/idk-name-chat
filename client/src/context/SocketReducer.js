@@ -1,19 +1,19 @@
 import avatars from '../avatars/avatars'
 
 const handlers = {
-  ['SHOW_LOADER']: state => {},
-  ['CONNECT_SOCKET']: (state, { payload }) => ({
+  SHOW_LOADER: state => {},
+  CONNECT_SOCKET: (state, { payload }) => ({
     ...state,
     socket: payload.socket,
   }),
-  ['ADD_MESSAGE']: (state, { payload }) => ({
+  ADD_MESSAGE: (state, { payload }) => ({
     ...state,
     chat: [
       ...state.chat,
       { message: payload.message, id: +new Date(), user: payload.user },
     ],
   }),
-  ['SET_USER']: (state, { payload }) => ({
+  SET_USER: (state, { payload }) => ({
     ...state,
     user: {
       ...state.user,

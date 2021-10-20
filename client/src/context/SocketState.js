@@ -14,7 +14,6 @@ export const SocketState = ({ children }) => {
     const clientSocket = io('http://localhost:8888')
 
     clientSocket.on('message', obj => {
-      console.log(obj)
       dispatch({ type: 'ADD_MESSAGE', payload: { ...obj } })
     })
 
@@ -24,10 +23,12 @@ export const SocketState = ({ children }) => {
     }
   }, [])
 
+  // should rework to server "auth"
   useEffect(() => {
     if (state.user) {
       state.socket.emit('user', { user: state.user })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.user])
 
   const sendMessage = (type, msg) => {

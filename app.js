@@ -13,6 +13,8 @@ const io = new Server(server, {
   },
 })
 
+const BOT = { username: 'MYASHA-BOT~', avatar: 0, bot: true }
+
 io.on('connection', socket => {
   socket.on('message', obj => {
     io.emit('message', obj)
@@ -20,10 +22,9 @@ io.on('connection', socket => {
 
   socket.on('user', payload => {
     socket.user = payload.user
-    console.log(payload)
     io.emit('message', {
-      message: `Welcome ${socket.user.username} on server!`,
-      user: { username: 'MYASHA-BOT~', avatar: 0, bot: true },
+      message: `Welcome @${socket.user.username} on server!`,
+      user: BOT,
     })
   })
 
