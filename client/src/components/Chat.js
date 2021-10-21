@@ -1,35 +1,30 @@
-import { Panel } from 'rsuite'
-import { useContext, useEffect } from 'react'
-import { SocketContext } from '../context/SocketContext'
-import Message from './Message'
+import ChatBody from './ChatComponents/ChatBody'
+import MessageInput from './ChatComponents/MessageInput'
+import ChatHeader from './ChatComponents/ChatHeader'
+import UsersDrawer from './UsersDrawer'
+import { useChatHeader } from '../hooks/useChatHeader'
+import { PanelGroup } from 'rsuite'
 
 const Chat = () => {
-  const { state } = useContext(SocketContext)
-
-  useEffect(() => {
-    const chatWindow = document.getElementById('chat-window')
-
-    if (chatWindow.scrollHeight > chatWindow.clientHeight) {
-      chatWindow.scrollTo({
-        top: document.getElementById('chat-window').scrollHeight,
-        behavior: 'smooth',
-      })
-    }
-  }, [state.chat])
+  const { handleClick, components } = useChatHeader()
 
   return (
-    <Panel
-      style={{
-        paddingLeft: '10px', // could be dynamic offsetWidth - clientWidth
-        overflow: 'auto',
-        height: '90%',
-      }}
-      id='chat-window'>
-      {state.chat.map(message => (
-        <Message key={message.id} user={message.user} msg={message.message} />
-      ))}
-    </Panel>
+    <>
+      <UsersDrawer open={components.users} handleClick={handleClick} />
+      <PanelGroup style={panelGroupStyles}>
+        <ChatHeader handleClick={handleClick} />
+        <ChatBody />
+        <MessageInput />
+      </PanelGroup>
+    </>
   )
+}
+
+const panelGroupStyles = {
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
 }
 
 export default Chat

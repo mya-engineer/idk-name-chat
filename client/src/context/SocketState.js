@@ -5,42 +5,37 @@ import { io } from 'socket.io-client'
 
 export const SocketState = ({ children }) => {
   const [state, dispatch] = useReducer(SocketReducer, {
+    loading: false,
     socket: undefined,
     chat: [],
-    user: undefined,
+    user: null,
   })
 
   useEffect(() => {
+    dispatch({ type: 'SHOW_LOADER' })
     const clientSocket = io('http://localhost:8888')
 
     clientSocket.on('message', obj => {
       dispatch({ type: 'ADD_MESSAGE', payload: { ...obj } })
     })
 
-    dispatch({ type: 'CONNECT_SOCKET', payload: { socket: clientSocket } })
+    clientSocket.on('connect', () =>
+      dispatch({ type: 'CONNECT_SOCKET', payload: { socket: clientSocket } })
+    )
+
+    clientSocket.on('connect_error', () => dispatch({ type: 'SHOW_LOADER' }))
+
     return () => {
       clientSocket.disconnect()
     }
   }, [])
 
-  // should rework to server "auth"
-  useEffect(() => {
-    if (state.user) {
-      state.socket.emit('user', { user: state.user })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.user])
-
   const sendMessage = (type, msg) => {
     state.socket.emit(type, { message: msg, user: state.user })
   }
 
-  const setUser = username => {
-    dispatch({ type: 'SET_USER', payload: { username } })
-  }
-
   return (
-    <SocketContext.Provider value={{ state, sendMessage, setUser }}>
+    <SocketContext.Provider value={{ state, sendMessage, dispatch }}>
       {children}
     </SocketContext.Provider>
   )

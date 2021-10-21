@@ -1,10 +1,11 @@
 import avatars from '../avatars/avatars'
 
 const handlers = {
-  SHOW_LOADER: state => {},
+  SHOW_LOADER: state => ({ ...state, loading: true }),
   CONNECT_SOCKET: (state, { payload }) => ({
     ...state,
     socket: payload.socket,
+    loading: false,
   }),
   ADD_MESSAGE: (state, { payload }) => ({
     ...state,

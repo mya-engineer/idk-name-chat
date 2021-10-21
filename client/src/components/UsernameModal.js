@@ -1,23 +1,32 @@
-import { useContext, useRef, useState } from 'react'
-import { SocketContext } from '../context/SocketContext'
-import { Modal, Button, Input, InputGroup } from 'rsuite'
+import { useRef } from 'react'
+import { Modal, Button, Input, InputGroup, toaster, Message } from 'rsuite'
 import { GiBandit } from 'react-icons/gi'
 
-const UsernameModal = () => {
-  const [modal, setModal] = useState(true)
-  const { setUser } = useContext(SocketContext)
+const UsernameModal = ({ open, setUser }) => {
   const inputRef = useRef('')
 
   const handleUsername = event => {
     event.preventDefault()
     if (inputRef.current.value) {
       setUser(inputRef.current.value)
-      setModal(false)
+    } else {
+      toaster.push(
+        <Message
+          type='error'
+          header='Error!'
+          children='You should choose your name!'
+          closable
+          showIcon
+        />,
+        {
+          placement: 'topEnd',
+        }
+      )
     }
   }
 
   return (
-    <Modal size='md' open={modal}>
+    <Modal size='md' open={open}>
       <Modal.Header closeButton={false}>
         <Modal.Title>What is your name?</Modal.Title>
       </Modal.Header>

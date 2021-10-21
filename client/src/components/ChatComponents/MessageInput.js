@@ -1,6 +1,6 @@
 import { useRef, useContext, useEffect } from 'react'
 import { IoIosSend } from 'react-icons/io'
-import { SocketContext } from '../context/SocketContext'
+import { SocketContext } from '../../context/SocketContext'
 import { Panel, InputGroup, Input } from 'rsuite'
 
 const MessageInput = () => {

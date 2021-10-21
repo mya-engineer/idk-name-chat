@@ -23,13 +23,18 @@ io.on('connection', socket => {
   socket.on('user', payload => {
     socket.user = payload.user
     io.emit('message', {
-      message: `Welcome @${socket.user.username} on server!`,
+      message: `Welcome, @${socket.user.username}!`,
       user: BOT,
     })
   })
 
   socket.on('disconnect', reason => {
-    console.log(reason)
+    if (socket.user) {
+      io.emit('message', {
+        message: `Farewell, @${socket.user.username}...`,
+        user: BOT,
+      })
+    }
   })
 })
 
