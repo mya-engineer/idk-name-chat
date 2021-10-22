@@ -1,11 +1,8 @@
 import { Panel } from 'rsuite'
-import { useContext, useEffect } from 'react'
-import { SocketContext } from '../../context/SocketContext'
+import { useEffect } from 'react'
 import Message from '../Message'
 
-const ChatBody = () => {
-  const { state } = useContext(SocketContext)
-
+const ChatBody = ({ state }) => {
   useEffect(() => {
     const chatWindow = document.getElementById('chat-window')
 

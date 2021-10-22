@@ -8,7 +8,8 @@ export const SocketState = ({ children }) => {
     loading: false,
     socket: undefined,
     chat: [],
-    user: null,
+    user: undefined,
+    users: [],
   })
 
   useEffect(() => {
@@ -21,6 +22,9 @@ export const SocketState = ({ children }) => {
 
     clientSocket.on('connect', () =>
       dispatch({ type: 'CONNECT_SOCKET', payload: { socket: clientSocket } })
+    )
+    clientSocket.on('users:list', users =>
+      dispatch({ type: 'SET_USERS', payload: { users } })
     )
 
     clientSocket.on('connect_error', () => dispatch({ type: 'SHOW_LOADER' }))

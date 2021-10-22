@@ -15,25 +15,46 @@ const io = new Server(server, {
 
 const BOT = { username: 'MYASHA-BOT~', avatar: 0, bot: true }
 
+const handleUser = async () => {
+  const users = await io
+    .fetchSockets()
+    .then(sockets => sockets.map(socket => socket.data.user))
+
+  users.sort((a, b) => {
+    if (a.username.toUpperCase() < b.username.toUpperCase()) {
+      return -1
+    } else if (a.username.toUpperCase() > b.username.toUpperCase()) {
+      return 1
+    } else {
+      return 0
+    }
+  })
+
+  io.emit('users:list', users)
+}
+
 io.on('connection', socket => {
   socket.on('message', obj => {
     io.emit('message', obj)
   })
 
   socket.on('user', payload => {
-    socket.user = payload.user
+    socket.data.user = payload.user
     io.emit('message', {
-      message: `Welcome, @${socket.user.username}!`,
+      message: `Welcome, @${socket.data.user.username}!`,
       user: BOT,
     })
+
+    handleUser()
   })
 
   socket.on('disconnect', reason => {
-    if (socket.user) {
+    if (socket.data.user) {
       io.emit('message', {
-        message: `Farewell, @${socket.user.username}...`,
+        message: `Farewell, @${socket.data.user.username}...`,
         user: BOT,
       })
+      handleUser()
     }
   })
 })

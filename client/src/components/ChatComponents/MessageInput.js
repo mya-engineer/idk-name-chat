@@ -1,11 +1,8 @@
-import { useRef, useContext, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { IoIosSend } from 'react-icons/io'
-import { SocketContext } from '../../context/SocketContext'
 import { Panel, InputGroup, Input } from 'rsuite'
 
-const MessageInput = () => {
-  const { state, sendMessage } = useContext(SocketContext)
-
+const MessageInput = ({ state, sendMessage }) => {
   const inputRef = useRef('')
   const handleMessage = event => {
     event.preventDefault()

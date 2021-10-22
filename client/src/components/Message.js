@@ -1,5 +1,5 @@
 import { FlexboxGrid, Avatar } from 'rsuite'
-import avatars from '../avatars/avatars'
+import { avatars } from '../avatars/avatars'
 
 const Message = ({ user, msg }) => {
   const MentionMessage = () => {
@@ -26,7 +26,9 @@ const Message = ({ user, msg }) => {
       <FlexboxGrid.Item>
         <Avatar
           children={
-            user.bot ? avatars.bots[user.avatar] : avatars.users[user.avatar]
+            user.bot
+              ? avatars.bots[user.avatar]()
+              : avatars.users[user.avatar]()
           }
         />
       </FlexboxGrid.Item>

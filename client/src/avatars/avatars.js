@@ -5,13 +5,25 @@ import {
   GiRobotAntennas,
 } from 'react-icons/gi'
 
-const avatars = {
+export const avatars = {
   users: [
-    <GiWolfHead size={'2rem'} color={'black'} />,
-    <GiDirewolf size={'2rem'} color={'black'} />,
-    <GiWolfHowl size={'2rem'} color={'black'} />,
+    (styles, size = undefined) => (
+      <GiWolfHead size={size ? size : '2rem'} color={'black'} style={styles} />
+    ),
+    (styles, size = undefined) => (
+      <GiDirewolf size={size ? size : '2rem'} color={'black'} style={styles} />
+    ),
+    (styles, size = undefined) => (
+      <GiWolfHowl size={size ? size : '2rem'} color={'black'} style={styles} />
+    ),
   ],
-  bots: [<GiRobotAntennas size={'2rem'} color={'black'} />],
+  bots: [
+    (styles, size = undefined) => (
+      <GiRobotAntennas size={'2rem'} color={'black'} />
+    ),
+  ],
 }
 
-export default avatars
+export const randomizeAvatar = () => {
+  return Math.floor(Math.random() * avatars.users.length)
+}

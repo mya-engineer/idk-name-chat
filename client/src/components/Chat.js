@@ -4,17 +4,24 @@ import ChatHeader from './ChatComponents/ChatHeader'
 import UsersDrawer from './UsersDrawer'
 import { useChatHeader } from '../hooks/useChatHeader'
 import { PanelGroup } from 'rsuite'
+import { SocketContext } from '../context/SocketContext'
+import { useContext } from 'react'
 
 const Chat = () => {
+  const { state, sendMessage } = useContext(SocketContext)
   const { handleClick, components } = useChatHeader()
 
   return (
     <>
-      <UsersDrawer open={components.users} handleClick={handleClick} />
+      <UsersDrawer
+        open={components.users}
+        handleClick={handleClick}
+        state={state}
+      />
       <PanelGroup style={panelGroupStyles}>
         <ChatHeader handleClick={handleClick} />
-        <ChatBody />
-        <MessageInput />
+        <ChatBody state={state} />
+        <MessageInput state={state} sendMessage={sendMessage} />
       </PanelGroup>
     </>
   )

@@ -1,4 +1,4 @@
-import avatars from '../avatars/avatars'
+import { randomizeAvatar } from '../avatars/avatars'
 
 const handlers = {
   SHOW_LOADER: state => ({ ...state, loading: true }),
@@ -19,8 +19,12 @@ const handlers = {
     user: {
       ...state.user,
       username: payload.username,
-      avatar: Math.floor(Math.random() * avatars.users.length),
+      avatar: randomizeAvatar(),
     },
+  }),
+  SET_USERS: (state, { payload }) => ({
+    ...state,
+    users: [...payload.users],
   }),
 }
 
