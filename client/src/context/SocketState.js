@@ -13,6 +13,7 @@ export const SocketState = ({ children }) => {
   })
 
   useEffect(() => {
+    console.log(process.env)
     dispatch({ type: 'SHOW_LOADER' })
     const clientSocket = io(
       `${process.env.DOMAIN || 'localhost'}:${process.env.PORT || 8888}`
