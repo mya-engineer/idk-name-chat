@@ -14,7 +14,9 @@ export const SocketState = ({ children }) => {
 
   useEffect(() => {
     dispatch({ type: 'SHOW_LOADER' })
-    const clientSocket = io('http://localhost:8888')
+    const clientSocket = io(
+      `${process.env.DOMAIN || 'localhost'}:${process.env.PORT || 8888}`
+    )
 
     clientSocket.on('message', obj => {
       dispatch({ type: 'ADD_MESSAGE', payload: { ...obj } })

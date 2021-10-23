@@ -1,8 +1,17 @@
 const express = require('express')
 const { Server } = require('socket.io')
 const http = require('http')
+const path = require('path')
 
 const app = express()
+
+if (process.env.NODE_ENV === 'production') {
+  app.use('/', express.static(path.join(__dirname, 'client', 'build')))
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
 
 const server = http.createServer(app)
 
@@ -59,6 +68,8 @@ io.on('connection', socket => {
   })
 })
 
-server.listen(8888, () => {
-  console.log('listening on *:8888')
+const PORT = process.env.PORT || 8888
+
+server.listen(PORT, () => {
+  console.log(`listening on *:${PORT}`)
 })

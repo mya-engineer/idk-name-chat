@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "SocketIO chat for all!",
   "main": "app.js",
-  "repository": "https://github.com/mya-engineer/idk-name-chat.git",
+  "repository": "https://github.com/mya-engineer/very-krutoi-chat.git",
   "author": "mya",
   "license": "MIT",
   "keywords": [
@@ -16,9 +16,14 @@
   "scripts": {
     "server": "nodemon app.js",
     "client": "yarn --cwd client start",
-    "dev": "concurrently \"yarn server\" \"yarn client\""
+    "dev": "cross-env NODE_ENV=development concurrently \"yarn server\" \"yarn client\"",
+    "prod": "cross-env NODE_ENV=production node app.js",
+    "client:install": "yarn --cwd client install --production",
+    "client:build": "yarn --cwd client build",
+    "server:install": "yarn install --production"
   },
   "dependencies": {
+    "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "socket.io": "^4.3.1"
   },
