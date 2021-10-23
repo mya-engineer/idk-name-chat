@@ -27,8 +27,8 @@ const Message = ({ user, msg }) => {
         <Avatar
           children={
             user.bot
-              ? avatars.bots[user.avatar]()
-              : avatars.users[user.avatar]()
+              ? avatars('bots', user.avatar)
+              : avatars('users', user.avatar)
           }
         />
       </FlexboxGrid.Item>

@@ -21,7 +21,7 @@ const UsersDrawer = ({ open, handleClick, state }) => {
                   />
                 </FlexboxGrid.Item>
                 <FlexboxGrid.Item colspan={5}>
-                  {avatars.users[user.avatar](centeredStyle)}
+                  {avatars('users', user.avatar, centeredStyle)}
                 </FlexboxGrid.Item>
                 <FlexboxGrid.Item colspan={17}>
                   {user.username}

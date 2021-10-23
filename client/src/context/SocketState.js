@@ -13,10 +13,11 @@ export const SocketState = ({ children }) => {
   })
 
   useEffect(() => {
-    console.log(process.env)
     dispatch({ type: 'SHOW_LOADER' })
     const clientSocket = io(
-      `${process.env.DOMAIN || 'localhost'}:${process.env.PORT || 8888}`
+      process.env.REACT_APP_DOMAIN
+        ? process.env.REACT_APP_DOMAIN
+        : '192.168.0.181:8888'
     )
 
     clientSocket.on('message', obj => {

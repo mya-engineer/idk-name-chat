@@ -11,7 +11,7 @@ const ChatHeader = ({ handleClick }) => {
           margin: '0 1rem',
           padding: '.5rem 0',
         }}>
-        <ButtonToolbar style={{ display: 'flex', justifyContent: 'end' }}>
+        <ButtonToolbar style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <IconButton
             icon={<BsPeopleFill size='1.5em' />}
             size='lg'
