@@ -7,7 +7,7 @@ This repo contains source code for chat application! Built on socket.io library.
 
 ### Demo
 
-· [Demo](https://very-krutoi-chat.herokuapp.com/)
+· [Demo](https://very-krutoi-chat.herokuapp.com/) (let heroku time to start web application, it is about 30 sec)
 
 ## Features
 
