@@ -27,7 +27,7 @@ This repo contains source code for chat application! Built on socket.io library.
 
 - [mya-engineer](https://github.com/mya-engineer)
 
-# License & Copyright
+## License & Copyright
 
 © [mya-engineer](https://github.com/mya-engineer)
 
