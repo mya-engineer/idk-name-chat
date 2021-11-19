@@ -11,10 +11,10 @@ This repo contains source code for chat application! Built on socket.io library.
 
 ## Features
 
-- Very _krutoi_ chat!
+- Very *krutoi* chat!
 - One room for wonderful chatting!
-- Bot welcomes and tells goodbye for you!
-- Drawer with list of users connected!
+- Bot welcomes and tells goodbye to you!
+- Drawer with list of connected users!
 
 ## Technologies
 
